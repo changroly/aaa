@@ -43,6 +43,10 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     ### 抓到顧客的資料 ###
+    message = TextSendMessage(text=event.message.text)
+    line_bot_api.reply_message(event.reply_token,message)
+
+
     profile = line_bot_api.get_profile(event.source.user_id)
     uid = profile.user_id #使用者ID
     usespeak=str(event.message.text) #使用者講的話
