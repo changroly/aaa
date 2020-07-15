@@ -2,6 +2,7 @@
 from pymongo import MongoClient
 import urllib.parse
 import datetime
+import pymongo
 ###############################################################################
 #                       股票機器人 Python基礎教學 【pymongo教學】                      #
 ###############################################################################

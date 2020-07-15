@@ -4,7 +4,9 @@ Created on Sat Aug 18 01:00:17 2018
 
 @author: linzino
 """
-
+from pymongo import MongoClient
+import pymongo
+import urllib.parse
 
 from flask import Flask, request, abort
 from linebot import (LineBotApi, WebhookHandler)
@@ -46,6 +48,20 @@ def handle_message(event):
     message = TextSendMessage(text=event.message.text)
     line_bot_api.reply_message(event.reply_token,message)
 
+    client = MongoClient('mongodb://roly:dayi3774@cluster0-shard-00-00.0mtts.mongodb.net:27017,cluster0-shard-00-01.0mtts.mongodb.net:27017,cluster0-shard-00-02.0mtts.mongodb.net:27017/<dbname>?ssl=true&replicaSet=atlas-da52w8-shard-0&authSource=admin&retryWrites=true&w=majority')
+    dbname='bot'
+    db = client[dbname]
+    coll = db['mydb']
+    dic = {'userid':'lw73iofqnjwenqeopop12387',
+       'username':'apple',
+       'Note':'testuser'}
+
+    coll.insert_one(dic)
+    dic2={'username':message}
+    coll.insert_one(dic2)    
+
+    usespeak=str(event.message.text)
+    mongodb.write_user_stock_fountion(stock=usespeak[0:4], bs=usespeak[4:5], price=usespeak[5:])
 
     profile = line_bot_api.get_profile(event.source.user_id)
     uid = profile.user_id #使用者ID
