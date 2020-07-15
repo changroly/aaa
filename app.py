@@ -4,9 +4,7 @@ Created on Sat Aug 18 01:00:17 2018
 
 @author: linzino
 """
-from pymongo import MongoClient
-import pymongo
-import urllib.parse
+
 
 from flask import Flask, request, abort
 from linebot import (LineBotApi, WebhookHandler)
@@ -18,11 +16,11 @@ import re
 app = Flask(__name__)
 
 # 必須放上自己的Channel Access Token
-line_bot_api = LineBotApi('YmfTUiq/xWPeYQauewowZvEuREnf4D8cvH5iWzTIMjPtt7IbU4tdNHUstThtteq3KAH7ACsb75e5p+dfibJxdTOnSStxm6nbGRFYIPPdCpNDCOSEwLjfYV2RgMrQ5Xfp1Pxilq1xkSnSzKqYhSbvwAdB04t89/1O/w1cDnyilFU=')
+line_bot_api = LineBotApi('')
 # 必須放上自己的Channel Secret
-handler = WebhookHandler('9e93e43eeec1bd1e797625fe93c339fe')
+handler = WebhookHandler('你的Secret')
 
-line_bot_api.push_message('Ufa417ac32d7807545a1974c6b36ac7cd', TextSendMessage(text='你可以開始了'))
+line_bot_api.push_message('你的ID', TextSendMessage(text='你可以開始了'))
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -45,24 +43,6 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     ### 抓到顧客的資料 ###
-    message = TextSendMessage(text=event.message.text)
-    line_bot_api.reply_message(event.reply_token,message)
-
-    client = MongoClient('mongodb://roly:dayi3774@cluster0-shard-00-00.0mtts.mongodb.net:27017,cluster0-shard-00-01.0mtts.mongodb.net:27017,cluster0-shard-00-02.0mtts.mongodb.net:27017/<dbname>?ssl=true&replicaSet=atlas-da52w8-shard-0&authSource=admin&retryWrites=true&w=majority')
-    dbname='bot'
-    db = client[dbname]
-    coll = db['mydb']
-    dic = {'userid':'lw73iofqnjwenqeopop12387',
-       'username':'apple',
-       'Note':'testuser'}
-
-    coll.insert_one(dic)
-    dic2={'username':message}
-    coll.insert_one(dic2)    
-
-    usespeak=str(event.message.text)
-    mongodb.write_user_stock_fountion(stock=usespeak[0:4], bs=usespeak[4:5], price=usespeak[5:])
-
     profile = line_bot_api.get_profile(event.source.user_id)
     uid = profile.user_id #使用者ID
     usespeak=str(event.message.text) #使用者講的話

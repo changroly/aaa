@@ -2,17 +2,16 @@
 from pymongo import MongoClient
 import urllib.parse
 import datetime
-import pymongo
 ###############################################################################
 #                       股票機器人 Python基礎教學 【pymongo教學】                      #
 ###############################################################################
 
 # Authentication Database認證資料庫
-Authdb='bot'
+Authdb='資料庫名稱'
 
 ##### 資料庫連接 #####
 def constructor():
-    client = MongoClient('mongodb://roly:dayi3774@cluster0-shard-00-00.0mtts.mongodb.net:27017,cluster0-shard-00-01.0mtts.mongodb.net:27017,cluster0-shard-00-02.0mtts.mongodb.net:27017/<dbname>?ssl=true&replicaSet=atlas-da52w8-shard-0&authSource=admin&retryWrites=true&w=majority')
+    client = MongoClient('你的連接指令')
     db = client[Authdb]
     return db
    
